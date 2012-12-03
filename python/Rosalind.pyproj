@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>bdd69aee-db06-4076-ba84-e5d537c0b6c6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>GRPH.py</StartupFile>
+    <StartupFile>PROT.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -32,6 +32,8 @@
     <Compile Include="GC.py" />
     <Compile Include="GRPH.py" />
     <Compile Include="HAMM.py" />
+    <Compile Include="PERM.py" />
+    <Compile Include="PROT.py" />
     <Compile Include="REVC.py" />
     <Compile Include="RNA.py" />
     <Compile Include="SUBS.py" />
