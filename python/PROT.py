@@ -66,3 +66,19 @@ codons = {
 };
 
 
+with open("rosalind_prot.txt") as input:
+    dna = input.readline().strip();
+    print "dna: ", dna
+    p = [];
+    for i in range(0, len(dna), 3):
+        c = dna[i:i+3];
+        a = codons[c];
+        if a: p.append(a);
+        print " codon: ", c;
+    protein = "".join(p);
+    print protein
+
+with open("rosalind_prot.out", "w+") as output:
+    output.write(protein);
+
+raw_input()

@@ -38,5 +38,8 @@
     <Compile Include="RNA.py" />
     <Compile Include="SUBS.py" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="rosalind_prot.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
