@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>bdd69aee-db06-4076-ba84-e5d537c0b6c6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PROT.py</StartupFile>
+    <StartupFile>REVP.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -35,11 +35,9 @@
     <Compile Include="PERM.py" />
     <Compile Include="PROT.py" />
     <Compile Include="REVC.py" />
+    <Compile Include="REVP.py" />
     <Compile Include="RNA.py" />
     <Compile Include="SUBS.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="rosalind_prot.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
