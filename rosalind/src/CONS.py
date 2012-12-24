@@ -4,8 +4,6 @@ Created on Dec 24, 2012
 @author: Carl Raymond
 '''
 
-from operator import itemgetter
-
 # Returns a dictionary containing counts for each
 # base in position pos of the sequences in data.
 def consensus(data, pos):
@@ -27,22 +25,17 @@ consseq = [max(cons.items(), key=lambda (k,v): v)[0] for cons in consvector]
 print "".join(consseq)
 
 print 'A:',
-vec = [consvector[k]['A'] for k in range(size)]
-for n in vec: print n,
+for n in [consvector[k]['A'] for k in range(size)]: print n,
 print
 
 print 'C:',
-vec = [consvector[k]['C'] for k in range(size)]
-for n in vec: print n,
+for n in [consvector[k]['C'] for k in range(size)]: print n,
 print
 
 print 'G:',
-vec = [consvector[k]['G'] for k in range(size)]
-for n in vec: print n,
+for n in [consvector[k]['G'] for k in range(size)]: print n,
 print
 
 print 'T:',
-vec = [consvector[k]['T'] for k in range(size)]
-for n in vec: print n,
+for n in [consvector[k]['T'] for k in range(size)]: print n,
 print
-
