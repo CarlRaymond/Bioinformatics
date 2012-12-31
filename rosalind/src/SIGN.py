@@ -11,6 +11,8 @@ def factorial(n):
     if n<1: return 1
     return factorial(n-1)*n
 
+# Recursive generator to enumerate all combinations of sign flips
+# for a list of length n
 def flipSign(l, n, pos):
     if pos < n:
         l[pos] = -l[pos]
