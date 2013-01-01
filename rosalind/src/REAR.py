@@ -22,8 +22,9 @@ from sys import exit
  We start by generating a naive solution as the initial best guess and put it into a priority queue ordered
  by the bounding value.
 """
+
 def breakpoints(perm):
-    """Generates the breakpoint positions in a permutation."""
+    """Generate the breakpoint positions in a permutation."""
     n = len(perm)
     if perm[0] != 1:
         yield 0
@@ -36,16 +37,14 @@ def breakpoints(perm):
 def breakpointCount(perm):
     return sum(1 for bp in breakpoints(perm))
 
-# Returns a lower bound on the number of reversals needed
-# to sort a permutation.  The bound is the ceiling of half
-# the number of breakpoints.  This is a weak bound that
-# can be improved later by adding more smartness.
 def reversalBound(perm):
-    """Returns a lower bound on the number of reversals needed to sort a permutation"""
+    """Compute a lower bound on the number of reversals needed to sort a permutation.
+       The bound is the ceiling of half the number of breakpoints.  This is a weak bound that
+       can be improved later by adding more smartness."""
     return (breakpointCount(perm)+1)/2
 
 def annotatedPerm(perm):
-    "Returns a string representation of a permutation with the breakpoints indicated by *"
+    """Returns a string representation of a permutation with the breakpoints indicated by *"""
     s = []
     n = len(perm)
     lastbp = 0
@@ -58,24 +57,23 @@ def annotatedPerm(perm):
         s.append(str(perm[k]))
     return ' '.join(s)
 
-# Returns the inverse of a permutation
 def inverse(perm):
-    "Returns the inverse of a permutation"
+    """Invert a permutation"""
     inv = [0] * len(perm)
     for i, p in enumerate(perm):
         inv[p-1] = i+1
     return inv
 
-# Returns a new permutation that represents a*b
 def compose(a, b):
+    """Compose permutations a and b"""
     comp = [0] * len(a)
     for i in xrange(len(a)):
         comp[i] = b[a[i]-1]
     return comp
 
-# Generates elements of a new permutation by applying the reversal indicated
-# by (i,j) to perm
 def reverse(perm, (i,j)):
+    """Generate elements of a new permutation by applying the reversal indicated by (i,j) to perm"""
+
     for k in xrange(i):
         yield perm[k]
     for k in xrange(i, j+1):
@@ -94,14 +92,14 @@ def applyReversal(incumbent, rev):
     newscore = len(newrevlist) + reversalBound(newperm)
     return ( newscore, newrevlist , newperm )
 
-# 
+
 def isSolution(incumbent):
     """Compare the resulting permutation in a state to the identity permutation."""
     for pos, val in enumerate(incumbent[2]):
         if val != pos+1: return False
     return True
 
-# 
+ 
 def naiveSolution(perm):
     """Construct the naive solution by putting each element into
        place in turn. This requires at most n-1 reversals."""
@@ -115,6 +113,7 @@ def naiveSolution(perm):
                     result = list(reverse(result, (i,j)))
                     revlist.append((i,j))
     return (len(revlist), revlist, range(1, n+1))
+
 
 def indexOfPerm(queue, perm):
     for pos, state in enumerate(queue):
