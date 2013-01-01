@@ -6,24 +6,24 @@ Created on Dec 24, 2012
 import heapq
 from sys import exit
 
-# Solves the problem of transforming one permutation to another by branch and bound.  The problem
-# is transformed to an equivalent one where we transform a permutation to the identity permutation.
-# The bounding function is based on the number of breakpoints in a candidate permutation.  This number
-# is zero for the identity permutation, which is the motivation for the transformation.
-#
-# Permutations are represented by lists containing integers 1 through n (not 0 through n-1) because that
-# matches the problem domain.
-#
-# A solution state (a node in the search space) is a triple consisting of a score, a list of pairs
-# representing reversals, and a permutation that is the result of applying the reversals to the
-# starting permutation.
-# Example: (6, [(0,2), (3,4)], [10, 8, 6, 4, 5, 1, 2, 4, 3, 7])
-#
-# We start by generating a naive solution as the initial best guess and put it into a priority queue ordered
-# by the bounding value.
+"""Solves the problem of transforming one permutation to another by branch and bound.  The problem
+ is transformed to an equivalent one where we transform a permutation to the identity permutation.
+ The bounding function is based on the number of breakpoints in a candidate permutation.  This number
+ is zero for the identity permutation, which is the motivation for the transformation.
 
-# Generates the breakpoint positions in a permutation. For definition see the literature.
+ Permutations are represented by lists containing integers 1 through n (not 0 through n-1) because that
+ matches the problem domain.
+
+ A solution state (a node in the search space) is a triple consisting of a score, a list of pairs
+ representing reversals, and a permutation that is the result of applying the reversals to the
+ starting permutation.
+ Example: (6, [(0,2), (3,4)], [10, 8, 6, 4, 5, 1, 2, 4, 3, 7])
+
+ We start by generating a naive solution as the initial best guess and put it into a priority queue ordered
+ by the bounding value.
+"""
 def breakpoints(perm):
+    """Generates the breakpoint positions in a permutation."""
     n = len(perm)
     if perm[0] != 1:
         yield 0
@@ -41,25 +41,26 @@ def breakpointCount(perm):
 # the number of breakpoints.  This is a weak bound that
 # can be improved later by adding more smartness.
 def reversalBound(perm):
+    """Returns a lower bound on the number of reversals needed to sort a permutation"""
     return (breakpointCount(perm)+1)/2
 
-# Returns a string representation of a permutation with the
-# breakpoints indicated by *
 def annotatedPerm(perm):
+    "Returns a string representation of a permutation with the breakpoints indicated by *"
     s = []
     n = len(perm)
     lastbp = 0
     for bp in breakpoints(perm):
         for k in xrange(lastbp, bp):
-            s.append(perm[k].__str__())
+            s.append(str(perm[k]))
         lastbp = bp
         s.append("*")
     for k in xrange(lastbp, n):
-        s.append(perm[k].__str__())
+        s.append(str(perm[k]))
     return ' '.join(s)
 
 # Returns the inverse of a permutation
 def inverse(perm):
+    "Returns the inverse of a permutation"
     inv = [0] * len(perm)
     for i, p in enumerate(perm):
         inv[p-1] = i+1
@@ -85,6 +86,7 @@ def reverse(perm, (i,j)):
 
    
 def applyReversal(incumbent, rev):
+    """Apply a reversal to a solution state."""
     score, revlist, perm = incumbent
     newrevlist = list(revlist)
     newrevlist.append(rev)
@@ -92,16 +94,17 @@ def applyReversal(incumbent, rev):
     newscore = len(newrevlist) + reversalBound(newperm)
     return ( newscore, newrevlist , newperm )
 
-# Validates a candidate solution by comparing the resulting permutation
-# to the identity permutation.
+# 
 def isSolution(incumbent):
+    """Compare the resulting permutation in a state to the identity permutation."""
     for pos, val in enumerate(incumbent[2]):
         if val != pos+1: return False
     return True
 
-# Constructs a naive solution by putting each element into
-# place. This requires at most n-1 reversals
+# 
 def naiveSolution(perm):
+    """Construct the naive solution by putting each element into
+       place in turn. This requires at most n-1 reversals."""
     revlist = []
     n = len(perm)
     result = perm[:]
@@ -118,6 +121,22 @@ def indexOfPerm(queue, perm):
         if state[2] == perm:
             return pos
     return -1
+
+def productiveReversals(perm):
+    "Generates reversals to apply to a perm that avoid the ends of the perm if they're in order"
+    # Find first and last out-of-place positions
+    for left in xrange(len(perm)):
+        if perm[left] != left+1: break;
+    else: return [] # Fully ordered?
+    for right in xrange(len(perm)-1, 0, -1):
+        if perm[right] != right+1: break
+    return [(i,j) for i in xrange(left, right) for j in xrange(i+1, right+1)]
+
+
+#testperm = [ 1, 3, 2, 4, 5, 6, 7, 9, 8, 10]
+#print "Testperm: ", testperm
+#print "Productive: ", productiveReversals(testperm)
+#exit()
 
 with open("rosalind_rear.txt") as spec:
     start = [int(x) for x in spec.readline().split()]
@@ -157,7 +176,7 @@ queue = [initialState]
 maxQueueLen = 1
 lastModLen = 0
 while (len(queue)>0):
-    modLen = len(queue) / 100
+    modLen = len(queue) / 1000
     if modLen != lastModLen:
         print "Queue length: ", len(queue)
         lastModLen = modLen
@@ -175,7 +194,9 @@ while (len(queue)>0):
         continue
     
     # Apply all possible reversals
-    for r in allrevs:
+    # Possible optimization: when the ends of the perm are in order, skip reversals that
+    # would mess them up.  That doesn't seem productive.  Needs a proof that it's valid.
+    for r in productiveReversals(incumbent[2]) :
         newstate = applyReversal(incumbent, r)
         if newstate[0] < bestScore:
             
