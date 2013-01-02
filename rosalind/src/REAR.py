@@ -106,7 +106,7 @@ def naiveSolution(perm):
        place in turn. This requires at most n-1 reversals."""
     revlist = []
     n = len(perm)
-    result = perm[:]
+    result = list(perm)
     for i in range(n-1):
         if result[i] != i+1:
             for j in range(i+1, n):
@@ -133,7 +133,10 @@ def productiveReversals(perm):
         if perm[right] != right+1: break
     return [(i,j) for i in xrange(left, right) for j in xrange(i+1, right+1)]
 
-
+def breakpointReversals(perm):
+    """Reversals to apply to a perm that correspond to the perm's breakpoints"""
+    bps = list(breakpoints(perm))
+    return [(left, right-1) for left in bps[:-1] for right in bps[1:] if left < right-1]
 
 with open("rosalind_rear.txt") as spec:
     start = tuple([int(x) for x in spec.readline().split()])
@@ -194,10 +197,7 @@ while True:
         bestState = incumbent
         continue
     
-    # Apply all possible reversals
-    # Possible optimization: when the ends of the perm are in order, skip reversals that
-    # would mess them up.  That doesn't seem productive.  Needs a proof that it's valid.
-    for r in productiveReversals(incumbent[2]) :
+    for r in breakpointReversals(incumbent[2]) :
         newstate = applyReversal(incumbent, r)
         if newstate[0] < bestScore: 
             acceptCount += 1
@@ -222,6 +222,6 @@ if tuple(perm) == goal:
 else:
     print "Oops! Something went wrong."
 
-print "Accepted: ", acceptCount
-print "Rejected: ", rejectCount
-print "Maximum queue length: ", maxQueueLen
+print "Accepted: {0:,}".format(acceptCount)
+print "Rejected: {0:,}".format(rejectCount)
+print "Maximum queue length: {0:,}".format(maxQueueLen)
