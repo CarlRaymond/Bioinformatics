@@ -3,25 +3,26 @@ Created on Dec 24, 2012
 
 @author: Carl Raymond
 '''
-import heapq
-from sys import exit
 
 """Solves the problem of transforming one permutation to another by branch and bound.  The problem
  is transformed to an equivalent one where we transform a permutation to the identity permutation.
  The bounding function is based on the number of breakpoints in a candidate permutation.  This number
  is zero for the identity permutation, which is the motivation for the transformation.
 
- Permutations are represented by lists containing integers 1 through n (not 0 through n-1) because that
+ Permutations are represented by tuples containing integers 1 through n (not 0 through n-1) because that
  matches the problem domain.
 
  A solution state (a node in the search space) is a triple consisting of a score, a list of pairs
- representing reversals, and a permutation that is the result of applying the reversals to the
- starting permutation.
- Example: (6, [(0,2), (3,4)], [10, 8, 6, 4, 5, 1, 2, 4, 3, 7])
+ representing reversals, and tuple representing the permutation that is the result of applying the
+ reversals to the starting permutation.
+ Example: (6, [(0,2), (3,4)], (10, 8, 6, 4, 5, 1, 2, 4, 3, 7))
 
  We start by generating a naive solution as the initial best guess and put it into a priority queue ordered
  by the bounding value.
 """
+
+from priorityQueue import PriorityQueue
+from sys import exit
 
 def breakpoints(perm):
     """Generate the breakpoint positions in a permutation."""
@@ -62,14 +63,14 @@ def inverse(perm):
     inv = [0] * len(perm)
     for i, p in enumerate(perm):
         inv[p-1] = i+1
-    return inv
+    return tuple(inv)
 
 def compose(a, b):
     """Compose permutations a and b"""
     comp = [0] * len(a)
     for i in xrange(len(a)):
         comp[i] = b[a[i]-1]
-    return comp
+    return tuple(comp)
 
 def reverse(perm, (i,j)):
     """Generate elements of a new permutation by applying the reversal indicated by (i,j) to perm"""
@@ -88,7 +89,7 @@ def applyReversal(incumbent, rev):
     score, revlist, perm = incumbent
     newrevlist = list(revlist)
     newrevlist.append(rev)
-    newperm = list(reverse(perm, rev))
+    newperm = tuple(reverse(perm, rev))
     newscore = len(newrevlist) + reversalBound(newperm)
     return ( newscore, newrevlist , newperm )
 
@@ -112,7 +113,7 @@ def naiveSolution(perm):
                 if result[j] == i+1:
                     result = list(reverse(result, (i,j)))
                     revlist.append((i,j))
-    return (len(revlist), revlist, range(1, n+1))
+    return (len(revlist), revlist, tuple(range(1, n+1)))
 
 
 def indexOfPerm(queue, perm):
@@ -120,6 +121,7 @@ def indexOfPerm(queue, perm):
         if state[2] == perm:
             return pos
     return -1
+    
 
 def productiveReversals(perm):
     "Generates reversals to apply to a perm that avoid the ends of the perm if they're in order"
@@ -132,14 +134,10 @@ def productiveReversals(perm):
     return [(i,j) for i in xrange(left, right) for j in xrange(i+1, right+1)]
 
 
-#testperm = [ 1, 3, 2, 4, 5, 6, 7, 9, 8, 10]
-#print "Testperm: ", testperm
-#print "Productive: ", productiveReversals(testperm)
-#exit()
 
 with open("rosalind_rear.txt") as spec:
-    start = [int(x) for x in spec.readline().split()]
-    goal = [int(x) for x in spec.readline().split()]
+    start = tuple([int(x) for x in spec.readline().split()])
+    goal = tuple([int(x) for x in spec.readline().split()])
 
 #start = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 #goal = [ 3, 1, 5, 2, 7, 4, 9, 6, 10, 8 ]
@@ -171,17 +169,21 @@ print "Initial state: ", initialState
 # Build a list of all possible reversals.
 allrevs = [(i,j) for i in xrange(n-1) for j in xrange(i+1, n)]
 
-queue = [initialState]
-maxQueueLen = 1
-lastModLen = 0
-while (len(queue)>0):
-    modLen = len(queue) / 1000
-    if modLen != lastModLen:
-        print "Queue length: ", len(queue)
-        lastModLen = modLen
+# The queue is implemented as a list of dictionaries. Each dictionary holds items of
+# the same score (0...n-1).
+queue = PriorityQueue(n)
+queue.insert(initialState)
+maxQueueLen = len(queue)
 
-    incumbent = heapq.heappop(queue)
-    #print "Popping ", incumbent, " Queue length: ", len(queue)
+while True:
+    l = len(queue)
+    if l % 1000 <= 5:
+        print l
+        
+    incumbent = queue.pop()
+    if incumbent == None: break
+    
+    #print "Popping ", incumbent
     if (incumbent[0] >= bestScore):
         #print "Rejecting ", incumbent
         continue
@@ -197,19 +199,15 @@ while (len(queue)>0):
     # would mess them up.  That doesn't seem productive.  Needs a proof that it's valid.
     for r in productiveReversals(incumbent[2]) :
         newstate = applyReversal(incumbent, r)
-        if newstate[0] < bestScore:
-            
-            # Look for this perm in the queue. Accept if not present,
-            # or if score is better than existing.
-            pos = indexOfPerm(queue, newstate[2])
-            if pos < 0 or newstate[0] < queue[pos][0]:
-                #print "Accepting ", newstate
-                acceptCount += 1
-                heapq.heappush(queue, newstate)
+        if newstate[0] < bestScore: 
+            acceptCount += 1
+            queue.insertUnlessPresent(newstate)
         else:
             rejectCount += 1
             #print "Rejecting ", newstate
     maxQueueLen = max(maxQueueLen, len(queue))
+    
+    
 print  "Best: ", bestState
 
 # Validate the result
@@ -219,7 +217,7 @@ for rev in bestState[1]:
     perm = list(reverse(perm, rev))
     print rev, ":", perm
 
-if perm == goal:
+if tuple(perm) == goal:
     print "Validated!"
 else:
     print "Oops! Something went wrong."
