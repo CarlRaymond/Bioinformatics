@@ -25,7 +25,7 @@ from priorityQueue import PriorityQueue
 from sys import exit
 
 def breakpoints(perm):
-    """Generate the breakpoint positions in a permutation."""
+    """The breakpoint positions in a permutation."""
     n = len(perm)
     if perm[0] != 1:
         yield 0
@@ -39,13 +39,13 @@ def breakpointCount(perm):
     return sum(1 for bp in breakpoints(perm))
 
 def reversalBound(perm):
-    """Compute a lower bound on the number of reversals needed to sort a permutation.
+    """A lower bound on the number of reversals needed to sort a permutation.
        The bound is the ceiling of half the number of breakpoints.  This is a weak bound that
        can be improved later by adding more smartness."""
     return (breakpointCount(perm)+1)/2
 
 def annotatedPerm(perm):
-    """Returns a string representation of a permutation with the breakpoints indicated by *"""
+    """A string representation of a permutation with the breakpoints indicated by *"""
     s = []
     n = len(perm)
     lastbp = 0
@@ -138,7 +138,7 @@ def breakpointReversals(perm):
     bps = list(breakpoints(perm))
     return [(left, right-1) for left in bps[:-1] for right in bps[1:] if left < right-1]
 
-with open("rosalind_rear.txt") as spec:
+with open("rosalind_sort.txt") as spec:
     start = tuple([int(x) for x in spec.readline().split()])
     goal = tuple([int(x) for x in spec.readline().split()])
 
@@ -225,3 +225,8 @@ else:
 print "Accepted: {0:,}".format(acceptCount)
 print "Rejected: {0:,}".format(rejectCount)
 print "Maximum queue length: {0:,}".format(maxQueueLen)
+
+print
+print len(bestState[1])
+for (i,j) in bestState[1]:
+    print i+1, j+1
