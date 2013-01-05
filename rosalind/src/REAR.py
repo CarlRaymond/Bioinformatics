@@ -138,7 +138,7 @@ def breakpointReversals(perm):
     bps = list(breakpoints(perm))
     return [(left, right-1) for left in bps[:-1] for right in bps[1:] if left < right-1]
 
-with open("rosalind_sort.txt") as spec:
+with open("rosalind_rear.txt") as spec:
     start = tuple([int(x) for x in spec.readline().split()])
     goal = tuple([int(x) for x in spec.readline().split()])
 

@@ -52,6 +52,7 @@ class PriorityQueue:
     def pop(self):
         for i in xrange(self.smallestScore, self.n):
             if (len(self.queue[i]) > 0): break
+            self.smallestScore = i
         else:
             return None
         

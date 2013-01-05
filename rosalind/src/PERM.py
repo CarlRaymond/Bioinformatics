@@ -31,10 +31,10 @@ n=7
 
 
 with open("rosalind_perm.out", "w+") as output:
-    output.write(math.factorial(n).__str__() + '\n');
+    output.write(str(math.factorial(n)) + '\n');
     for p in permutations(range(1, n+1)):
         for i in p:
-            output.write(i.__str__());
+            output.write(str(i));
             output.write(" ");
         output.write("\n");
 

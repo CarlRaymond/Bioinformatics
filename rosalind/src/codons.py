@@ -90,3 +90,5 @@ def splitCodons(seq, start=0):
 
 def proteinFromCodons(codons):
     return "".join([codonTable[c] for c in codons])
+
+    
