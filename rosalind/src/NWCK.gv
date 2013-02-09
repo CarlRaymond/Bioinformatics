@@ -1,0 +1,329 @@
+graph G { graph [overlap=false, splines=false]; 
+node Acanthosaura_tetrix [ label="Acanthosaura\ntetrix"];
+node Holaspis_mystacinus [ label="Holaspis\nmystacinus"];
+node V1 [ label="V1"];
+V1 -- Acanthosaura_tetrix
+V1 -- Holaspis_mystacinus
+node Lycodon_glacialis [ label="Lycodon\nglacialis"];
+node Aegialifes_riparia [ label="Aegialifes\nriparia"];
+node Middendorffinaia_heterolepidotus [ label="Middendorffinaia\nheterolepidotus"];
+node Mustela_fischeri [ label="Mustela\nfischeri"];
+node V2 [ label="V2"];
+V2 -- Middendorffinaia_heterolepidotus
+V2 -- Mustela_fischeri
+node Numenius_hasselquistii [ label="Numenius\nhasselquistii"];
+node Xenochrophis_albopillosum [ label="Xenochrophis\nalbopillosum"];
+node Cyriopagopus_odoratus [ label="Cyriopagopus\nodoratus"];
+node V3 [ label="V3"];
+V3 -- Xenochrophis_albopillosum
+V3 -- Cyriopagopus_odoratus
+node V4 [ label="V4"];
+V4 -- Numenius_hasselquistii
+V4 -- V3
+node V5 [ label="V5"];
+V5 -- V2
+V5 -- V4
+node Calidris_taezanowskyi [ label="Calidris\ntaezanowskyi"];
+node Xenopeltis_leschenaultii [ label="Xenopeltis\nleschenaultii"];
+node Chettussia_helena [ label="Chettussia\nhelena"];
+node Kinosternon_thibetanus [ label="Kinosternon\nthibetanus"];
+node Castor_pygmaeus [ label="Castor\npygmaeus"];
+node V6 [ label="V6"];
+V6 -- Kinosternon_thibetanus
+V6 -- Castor_pygmaeus
+node Ortigometra_gregaria [ label="Ortigometra\ngregaria"];
+node Phrynohyas_rusticolus [ label="Phrynohyas\nrusticolus"];
+node Caiman_nebularia [ label="Caiman\nnebularia"];
+node V7 [ label="V7"];
+V7 -- Phrynohyas_rusticolus
+V7 -- Caiman_nebularia
+node V8 [ label="V8"];
+V8 -- Ortigometra_gregaria
+V8 -- V7
+node Vulpes_scincus [ label="Vulpes\nscincus"];
+node V9 [ label="V9"];
+V9 -- V8
+V9 -- Vulpes_scincus
+node V10 [ label="V10"];
+V10 -- V6
+V10 -- V9
+node V11 [ label="V11"];
+V11 -- Chettussia_helena
+V11 -- V10
+node Bombina_limosa [ label="Bombina\nlimosa"];
+node V12 [ label="V12"];
+V12 -- V11
+V12 -- Bombina_limosa
+node Eurynorhynchus_aeruginosus [ label="Eurynorhynchus\naeruginosus"];
+node V13 [ label="V13"];
+V13 -- V12
+V13 -- Eurynorhynchus_aeruginosus
+node V14 [ label="V14"];
+V14 -- Xenopeltis_leschenaultii
+V14 -- V13
+node Antilope_apollo [ label="Antilope\napollo"];
+node Tiliqua_multituberculatus [ label="Tiliqua\nmultituberculatus"];
+node V15 [ label="V15"];
+V15 -- Antilope_apollo
+V15 -- Tiliqua_multituberculatus
+node Saga_turtur [ label="Saga\nturtur"];
+node V16 [ label="V16"];
+V16 -- V15
+V16 -- Saga_turtur
+node Lycodon_anachoreta [ label="Lycodon\nanachoreta"];
+node Buthus_cambridgei [ label="Buthus\ncambridgei"];
+node Capella_chukar [ label="Capella\nchukar"];
+node V17 [ label="V17"];
+V17 -- Buthus_cambridgei
+V17 -- Capella_chukar
+node Homopholis_dennysii [ label="Homopholis\ndennysii"];
+node Oenanthe_scrofa [ label="Oenanthe\nscrofa"];
+node V18 [ label="V18"];
+V18 -- Homopholis_dennysii
+V18 -- Oenanthe_scrofa
+node V19 [ label="V19"];
+V19 -- V17
+V19 -- V18
+node Nyroca_acanthinura [ label="Nyroca\nacanthinura"];
+node V20 [ label="V20"];
+V20 -- V19
+V20 -- Nyroca_acanthinura
+node V21 [ label="V21"];
+V21 -- Lycodon_anachoreta
+V21 -- V20
+node Dyscophus_tristis [ label="Dyscophus\ntristis"];
+node V22 [ label="V22"];
+V22 -- V21
+V22 -- Dyscophus_tristis
+node Agama_colchicus [ label="Agama\ncolchicus"];
+node V23 [ label="V23"];
+V23 -- V22
+V23 -- Agama_colchicus
+node Leptobrachium_salei [ label="Leptobrachium\nsalei"];
+node Eutamias_rusticolus [ label="Eutamias\nrusticolus"];
+node Rufibrenta_gallicus [ label="Rufibrenta\ngallicus"];
+node Citharacanthus_cyanochloris [ label="Citharacanthus\ncyanochloris"];
+node V24 [ label="V24"];
+V24 -- Rufibrenta_gallicus
+V24 -- Citharacanthus_cyanochloris
+node V25 [ label="V25"];
+V25 -- Eutamias_rusticolus
+V25 -- V24
+node V26 [ label="V26"];
+V26 -- Leptobrachium_salei
+V26 -- V25
+node Chrysemys_tetrax [ label="Chrysemys\ntetrax"];
+node V27 [ label="V27"];
+V27 -- V26
+V27 -- Chrysemys_tetrax
+node Tiliqua_falcipennis [ label="Tiliqua\nfalcipennis"];
+node Coenobita_nivalis [ label="Coenobita\nnivalis"];
+node Acanthis_leporosum [ label="Acanthis\nleporosum"];
+node Glareola_tigris [ label="Glareola\ntigris"];
+node Selenocosmia_decorus [ label="Selenocosmia\ndecorus"];
+node V28 [ label="V28"];
+V28 -- Glareola_tigris
+V28 -- Selenocosmia_decorus
+node Meles_perdix [ label="Meles\nperdix"];
+node V29 [ label="V29"];
+V29 -- V28
+V29 -- Meles_perdix
+node Rhodostethia_ruthveni [ label="Rhodostethia\nruthveni"];
+node V30 [ label="V30"];
+V30 -- V29
+V30 -- Rhodostethia_ruthveni
+node Latastia_mnemosyne [ label="Latastia\nmnemosyne"];
+node V31 [ label="V31"];
+V31 -- V30
+V31 -- Latastia_mnemosyne
+node V32 [ label="V32"];
+V32 -- Acanthis_leporosum
+V32 -- V31
+node V33 [ label="V33"];
+V33 -- Coenobita_nivalis
+V33 -- V32
+node Panthera_mirabilis [ label="Panthera\nmirabilis"];
+node Saiga_guentheri [ label="Saiga\nguentheri"];
+node Tetraogallus_tenuirostris [ label="Tetraogallus\ntenuirostris"];
+node Lutra_chukar [ label="Lutra\nchukar"];
+node V34 [ label="V34"];
+V34 -- Tetraogallus_tenuirostris
+V34 -- Lutra_chukar
+node Certhia_clypeatus [ label="Certhia\nclypeatus"];
+node Varanus_borealis [ label="Varanus\nborealis"];
+node V35 [ label="V35"];
+V35 -- Certhia_clypeatus
+V35 -- Varanus_borealis
+node Coleonyx_vulpes [ label="Coleonyx\nvulpes"];
+node V36 [ label="V36"];
+V36 -- V35
+V36 -- Coleonyx_vulpes
+node V37 [ label="V37"];
+V37 -- V34
+V37 -- V36
+node V38 [ label="V38"];
+V38 -- Saiga_guentheri
+V38 -- V37
+node V39 [ label="V39"];
+V39 -- Panthera_mirabilis
+V39 -- V38
+node Phalaropus_apus [ label="Phalaropus\napus"];
+node V40 [ label="V40"];
+V40 -- V39
+V40 -- Phalaropus_apus
+node Alauda_chukar [ label="Alauda\nchukar"];
+node V41 [ label="V41"];
+V41 -- V40
+V41 -- Alauda_chukar
+node V42 [ label="V42"];
+V42 -- V33
+V42 -- V41
+node V43 [ label="V43"];
+V43 -- Tiliqua_falcipennis
+V43 -- V42
+node V44 [ label="V44"];
+V44 -- V27
+V44 -- V43
+node V45 [ label="V45"];
+V45 -- V23
+V45 -- V44
+node Dasypeltis_galeatus [ label="Dasypeltis\ngaleatus"];
+node Neolycaena_albirostris [ label="Neolycaena\nalbirostris"];
+node Eirenis_plathyrhychos [ label="Eirenis\nplathyrhychos"];
+node V46 [ label="V46"];
+V46 -- Neolycaena_albirostris
+V46 -- Eirenis_plathyrhychos
+node V47 [ label="V47"];
+V47 -- Dasypeltis_galeatus
+V47 -- V46
+node Osmoderma_hasselquistii [ label="Osmoderma\nhasselquistii"];
+node Melanocoryhpa_decor [ label="Melanocoryhpa\ndecor"];
+node V48 [ label="V48"];
+V48 -- Osmoderma_hasselquistii
+V48 -- Melanocoryhpa_decor
+node Acipenser_septentrionalis [ label="Acipenser\nseptentrionalis"];
+node V49 [ label="V49"];
+V49 -- V48
+V49 -- Acipenser_septentrionalis
+node Morelia_lutris [ label="Morelia\nlutris"];
+node Osteopilus_manul [ label="Osteopilus\nmanul"];
+node V50 [ label="V50"];
+V50 -- Morelia_lutris
+V50 -- Osteopilus_manul
+node crecca_scutulata [ label="crecca\nscutulata"];
+node V51 [ label="V51"];
+V51 -- V50
+V51 -- crecca_scutulata
+node V52 [ label="V52"];
+V52 -- V49
+V52 -- V51
+node V53 [ label="V53"];
+V53 -- V47
+V53 -- V52
+node V54 [ label="V54"];
+V54 -- V45
+V54 -- V53
+node Nyctixalus_valliceps [ label="Nyctixalus\nvalliceps"];
+node Bradypodion_bimaculata [ label="Bradypodion\nbimaculata"];
+node Pseudemys_baibacina [ label="Pseudemys\nbaibacina"];
+node V55 [ label="V55"];
+V55 -- Bradypodion_bimaculata
+V55 -- Pseudemys_baibacina
+node Ceratophrys_bukhunensis [ label="Ceratophrys\nbukhunensis"];
+node Parus_olivacea [ label="Parus\nolivacea"];
+node Fuligula_eximia [ label="Fuligula\neximia"];
+node Oxyura_dorsalis [ label="Oxyura\ndorsalis"];
+node V56 [ label="V56"];
+V56 -- Fuligula_eximia
+V56 -- Oxyura_dorsalis
+node Phylloscopus_cambridgei [ label="Phylloscopus\ncambridgei"];
+node Lycaenopsis_leucomelas [ label="Lycaenopsis\nleucomelas"];
+node V57 [ label="V57"];
+V57 -- Phylloscopus_cambridgei
+V57 -- Lycaenopsis_leucomelas
+node V58 [ label="V58"];
+V58 -- V56
+V58 -- V57
+node V59 [ label="V59"];
+V59 -- Parus_olivacea
+V59 -- V58
+node V60 [ label="V60"];
+V60 -- Ceratophrys_bukhunensis
+V60 -- V59
+node V61 [ label="V61"];
+V61 -- V55
+V61 -- V60
+node V62 [ label="V62"];
+V62 -- Nyctixalus_valliceps
+V62 -- V61
+node Scorpio_weberi [ label="Scorpio\nweberi"];
+node Pleurodeles_leucopsis [ label="Pleurodeles\nleucopsis"];
+node V63 [ label="V63"];
+V63 -- Scorpio_weberi
+V63 -- Pleurodeles_leucopsis
+node V64 [ label="V64"];
+V64 -- V62
+V64 -- V63
+node V65 [ label="V65"];
+V65 -- V54
+V65 -- V64
+node Lobipes_aeruginosus [ label="Lobipes\naeruginosus"];
+node Eumeces_gallinago [ label="Eumeces\ngallinago"];
+node V66 [ label="V66"];
+V66 -- Lobipes_aeruginosus
+V66 -- Eumeces_gallinago
+node V67 [ label="V67"];
+V67 -- V65
+V67 -- V66
+node V68 [ label="V68"];
+V68 -- V16
+V68 -- V67
+node V69 [ label="V69"];
+V69 -- V14
+V69 -- V68
+node Homalopsis_vertebralis [ label="Homalopsis\nvertebralis"];
+node V70 [ label="V70"];
+V70 -- V69
+V70 -- Homalopsis_vertebralis
+node V71 [ label="V71"];
+V71 -- Calidris_taezanowskyi
+V71 -- V70
+node V72 [ label="V72"];
+V72 -- V5
+V72 -- V71
+node V73 [ label="V73"];
+V73 -- Aegialifes_riparia
+V73 -- V72
+node Spizaetus_gordoni [ label="Spizaetus\ngordoni"];
+node Pituophis_geniculata [ label="Pituophis\ngeniculata"];
+node Acanthoceros_nebrius [ label="Acanthoceros\nnebrius"];
+node Balaena_stimsoni [ label="Balaena\nstimsoni"];
+node V74 [ label="V74"];
+V74 -- Acanthoceros_nebrius
+V74 -- Balaena_stimsoni
+node Cygnus_tanganicus [ label="Cygnus\ntanganicus"];
+node V75 [ label="V75"];
+V75 -- V74
+V75 -- Cygnus_tanganicus
+node V76 [ label="V76"];
+V76 -- Pituophis_geniculata
+V76 -- V75
+node V77 [ label="V77"];
+V77 -- Spizaetus_gordoni
+V77 -- V76
+node V78 [ label="V78"];
+V78 -- V73
+V78 -- V77
+node Tupinambus_hypoleucos [ label="Tupinambus\nhypoleucos"];
+node V79 [ label="V79"];
+V79 -- V78
+V79 -- Tupinambus_hypoleucos
+node Apodora_limosa [ label="Apodora\nlimosa"];
+node V80 [ label="V80"];
+V80 -- V79
+V80 -- Apodora_limosa
+node V81 [ label="V81"];
+V81 -- V1
+V81 -- Lycodon_glacialis
+V81 -- V80
+}

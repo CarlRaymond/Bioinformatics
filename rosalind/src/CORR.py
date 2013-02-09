@@ -18,7 +18,7 @@ def isDistance(seq1, seq2, n):
     return dist == n
 
 if __name__ == '__main__':
-    with open("rosalind_corr.txt") as spec:
+    with open("corr.txt") as spec:
         rawdata = [seq.strip() for seq in spec]
 
     # Build a dictionary with reads as keys and counts as the value.    
@@ -47,8 +47,8 @@ if __name__ == '__main__':
         for b in badreads:
             for r in reads:
                 if isDistance(b, r, 1):
-                    output.write("{0}->{1}\n".format(b,r))
+                    output.write("- {0}->{1}\n".format(b,r))
                     break
                 elif isDistance(b, revc(r), 1):
-                    output.write("{0}->{1}\n".format(b, revc(r)))
+                    output.write("* {0}->{1}\n".format(b, revc(r)))
                     break

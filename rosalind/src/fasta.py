@@ -15,3 +15,4 @@ def read(data):
         else:
             contents.append(line.strip());
     yield name, "".join(contents);
+
