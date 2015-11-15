@@ -21,7 +21,7 @@ with open("rosalind_lgis.txt") as spec:
 #print "{0:2}: ".format(n), formatted
 
 
-# The pathinc (pathdec) array holds pairs (len, ptr) where len is the length of
+# The pathinc (pathdec) array holds pairs (len, pos) where len is the length of
 # the longest increasing (decreasing) subsequence ending at that point, and pos is
 # the index of the preceding element of the subsequence of that length. 
 pathinc = [(0,0)] * (n+1)
