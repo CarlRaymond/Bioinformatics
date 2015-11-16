@@ -19,7 +19,7 @@ def isDistance(seq1, seq2, n):
     return dist == n
 
 
-with open("corr.txt") as spec:
+with open("rosalind_corr.txt") as spec:
     rawdata = [seq.strip() for name,seq in read(spec)]
     
 
@@ -34,25 +34,36 @@ for seq in rawdata:
 print "Original data: {0} sequences.".format(len(rawdata))
 print "Distinct reads: {0} sequences.".format(len(reads))
 
+readsum = sum(v for k,v in reads.iteritems())
+print "Total multiplicity: {0}".format(readsum)
+
+# Goodreads are have multiplicity > 1 or are present in revc form
+goodreads = [seq for seq,mult in reads.iteritems() if mult > 1 or revc(seq) in reads]
+print "Good reads: {0}".format(len(goodreads))
+
 # Build list of sequences appearing once
-singletons = [k for k,v in reads.iteritems() if v == 1]
+singletons = [seq for seq,mult in reads.iteritems() if mult == 1]
 print "Singletons: {0}".format(len(singletons))
 
-for s in singletons: print s
+#for s in singletons: print s
 
 #for k,v in reads.iteritems():
 #    if v > 1: print k,v
-    
-# Build list of sequences whose revc was not read    
-badreads = [seq for seq in singletons if revc(seq) not in reads]
+
+# Build list of sequences whose revc was not read  
+badreads = [seq for seq in reads if revc(seq) not in goodreads]
+
 print "Bad reads: {0}".format(len(badreads))
 
 with open("rosalind_corr.out", "w+") as output:
     for b in badreads:
         for r in reads:
             if isDistance(b, r, 1):
-                output.write("- {0}->{1}\n".format(b,r))
+                output.write("{0}->{1}\n".format(b,r))
                 break
             elif isDistance(b, revc(r), 1):
-                output.write("* {0}->{1}\n".format(b, revc(r)))
+                output.write("{0}->{1}\n".format(b, revc(r)))
                 break
+        else:
+            print "*** Unmatched! *** "
+            print b
