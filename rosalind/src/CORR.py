@@ -32,10 +32,10 @@ for seq in rawdata:
         reads[seq] = 1
  
 print "Original data: {0} sequences.".format(len(rawdata))
-print "Distinct reads: {0} sequences.".format(len(reads))
+print "Distinct reads: {0} sequences.".format(len(reads))   
 
 readsum = sum(v for k,v in reads.iteritems())
-print "Total multiplicity: {0}".format(readsum)
+print "Total multiplicity: {0}".format(readsum)                                                                                                                             
 
 # Goodreads are have multiplicity > 1 or are present in revc form
 goodreads = [seq for seq,mult in reads.iteritems() if mult > 1 or revc(seq) in reads]
@@ -51,19 +51,21 @@ print "Singletons: {0}".format(len(singletons))
 #    if v > 1: print k,v
 
 # Build list of sequences whose revc was not read  
-badreads = [seq for seq in reads if revc(seq) not in goodreads]
+badreads = [seq for seq in singletons if revc(seq) not in goodreads]
 
 print "Bad reads: {0}".format(len(badreads))
 
+# A bad read must have distance 1 to exactly one good read
 with open("rosalind_corr.out", "w+") as output:
     for b in badreads:
-        for r in reads:
+        count = 0
+        for r in goodreads:
             if isDistance(b, r, 1):
-                output.write("{0}->{1}\n".format(b,r))
-                break
+                match = r
+                count += 1
             elif isDistance(b, revc(r), 1):
-                output.write("{0}->{1}\n".format(b, revc(r)))
-                break
-        else:
-            print "*** Unmatched! *** "
-            print b
+                match = revc(r)
+                count += 1
+
+        if count == 1:
+            output.write("{0}->{1}\n".format(b, match))

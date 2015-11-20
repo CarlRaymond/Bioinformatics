@@ -16,3 +16,9 @@ ATCAA
 TTGAT
 >Rosalind_18
 TTTCC
+>Carl_1
+ACGTA
+>Carl_2
+TACGT
+>Carl_3
+TATGT
