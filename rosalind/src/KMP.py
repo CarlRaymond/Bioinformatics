@@ -4,10 +4,10 @@ Created on Jan 8, 2013
 @author: Carl Raymond
 '''
 
-with open("rosalind_kmp.txt") as spec:
-    seq = spec.readline().strip()
+from fasta import read
 
-#print seq
+with open("rosalind_kmp.txt") as spec:
+    name,seq = read(spec).next()
 
 n = len(seq)
 print "Length:", n
@@ -15,7 +15,9 @@ print "Length:", n
 failure = [0] * n
 #failure[0] = 0
 
+# No. of matches seen so far
 m = 0
+
 k = 1
 while k<n:
     if seq[k] == seq[m]:
@@ -23,14 +25,15 @@ while k<n:
         failure[k] = m
         k += 1
     elif m > 0:
-        m = failure[m]
-        print "Backtrack at", k
+        #print "Backtrack at {0} where m = {1}".format(k, m);
+        m = failure[m-1]
+        #print "New m = {0}".format(m);
     else:
         failure[k] = 0
-        m = 0
         k += 1
 
-print "Failure:"        
-for f in failure: print f,
-print
+with open("rosalind_kmp.out", "w+") as result:
+    for f in failure:
+        result.write("{0} ".format(f));
+
         
