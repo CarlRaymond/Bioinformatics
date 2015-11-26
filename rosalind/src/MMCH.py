@@ -22,10 +22,10 @@ print "CG: max: {0},  min: {1}".format(cg_max, cg_min)
 
 # A and U can be mapped in au_max! / (au_max - au_min)!
 # C and G can be mapped in cg_max! / (cg_max - cg_min)!
-au_matches = math.factorial(au_max) / math.factorial(au_max - au_min)
-cg_matches = math.factorial(cg_max) / math.factorial(cg_max - cg_min)
+au_matchings = math.factorial(au_max) / math.factorial(au_max - au_min)
+cg_matchings = math.factorial(cg_max) / math.factorial(cg_max - cg_min)
 
-print "au_maps: {0}, cg_maps: {1}".format(au_matches, cg_matches)
+print "au_matchings: {0}, cg_matchings: {1}".format(au_matchings, cg_matchings)
 
-total = au_matches * cg_matches
+total = au_matchings * cg_matchings
 print "Total matchings: {0}".format(total)
