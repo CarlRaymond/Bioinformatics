@@ -8,7 +8,7 @@ Created on Nov. 24 2015
 from fasta import read
 
 
-with open("rosalind_edta.txt") as spec:
+with open("data/rosalind_edta.txt") as spec:
     data_s, data_t = read(spec)
 
 _, S = data_s
@@ -20,7 +20,7 @@ print "T (length {0}): {1}".format(len_t, T)
 
 cost_gap_S = 1
 cost_gap_T = 1
-cost_substitute = 2
+cost_substitute = 1
 
 # Allocate and initialize the cost array. Each cell is a tuple consiting of a
 # cost and an operation token that describes how we got to this place from
@@ -50,12 +50,12 @@ for j in range(len_t):
         op = (substitute, 1)
         
         # 2. Gap in S
-        gap_s = thisrow[i][0] + cost_gap_S
+        gap_s = lastrow[i+1][0] + cost_gap_S
         if gap_s < op[0]:
             op = (gap_s, 2)
             
         # 3. Gap in T
-        gap_t = lastrow[i+1][0] + cost_gap_T
+        gap_t = thisrow[i][0] + cost_gap_T
         if gap_t < op[0]:
             op = (gap_t, 3)
             
@@ -87,20 +87,20 @@ while i>0 or j>0:
         j -= 1
         revalign_t.append(T[j])
     elif action == 2:
-        # Gap in T, consume in S
-        i -= 1
-        revalign_s.append(S[i])
-        revalign_t.append('-')
-    elif action == 3:
         # Gap in S, consume in T
         revalign_s.append('-')
         j -= 1
         revalign_t.append(T[j])
+    elif action == 3:
+        # Gap in T, consume in S
+        i -= 1
+        revalign_s.append(S[i])
+        revalign_t.append('-')
 
 align_s = "".join(revalign_s[::-1])
 align_t = "".join(revalign_t[::-1])
 
-with open("rosalind_edta.out", "w+") as output:
+with open("data/rosalind_edta.out", "w+") as output:
     output.write("{0}\n".format(ed))
     output.write("{0}\n".format(align_s))
     output.write("{0}\n".format(align_t))
