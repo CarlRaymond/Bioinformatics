@@ -138,7 +138,7 @@ def breakpointReversals(perm):
     bps = list(breakpoints(perm))
     return [(left, right-1) for left in bps[:-1] for right in bps[1:] if left < right-1]
 
-with open("rosalind_rear.txt") as spec:
+with open("data/rosalind_rear.txt") as spec:
     start = tuple([int(x) for x in spec.readline().split()])
     goal = tuple([int(x) for x in spec.readline().split()])
 
@@ -180,7 +180,7 @@ maxQueueLen = len(queue)
 
 while True:
     l = len(queue)
-    if l % 1000 <= 5:
+    if l % 10000 <= 5:
         print l
         
     incumbent = queue.pop()
