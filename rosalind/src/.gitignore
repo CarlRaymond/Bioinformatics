@@ -3,3 +3,5 @@
 *.gv
 *.pdf
 *.png
+.vscode
+*.out
